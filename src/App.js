@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import TodoList from './components/TodoList';
+import SearchBar from './components/SearchBar';
+import FilterBar from './components/FilterBar';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTodos } from './redux/actions';
+import Header from './components/Header';
+import ErrorBoundary from './components/ErrorBoundary';
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todos);
+
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, [dispatch]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <ErrorBoundary>
+        <SearchBar />
+        <FilterBar />
+        <TodoList todos={todos} />
+      </ErrorBoundary>
     </div>
   );
-}
+};
 
 export default App;
