@@ -7,6 +7,15 @@
 .filters .btn {
   margin: 0 10px;
   padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filters .btn:hover {
+  background-color: #45a049;
 }
 
 /* Карточки с задачами и редактированием */
@@ -23,6 +32,7 @@
   margin-right: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  width: 200px;
 }
 
 .card button {
@@ -36,4 +46,41 @@
 
 .card button:hover {
   background-color: #0056b3;
+}
+
+.card .error {
+  color: red;
+  font-size: 12px;
+}
+
+.task {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.task.active {
+  background-color: #f9f9f9;
+}
+
+.task.completed {
+  background-color: #d3ffd3;
+}
+
+.task span {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.task button {
+  background-color: #ff4b5c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task button:hover {
+  background-color: #ff1f2d;
 }

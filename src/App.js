@@ -2,19 +2,25 @@ import React, { useState } from 'react';
 import './App.css';
 
 const App = () => {
-  const [tasks, setTasks] = useState([
-    { id: 1, text: 'Learn React', completed: false },
-    { id: 2, text: 'Build an app', completed: false },
-  ]);
+  const [tasks, setTasks] = useState([]);
+  const [taskName, setTaskName] = useState(''); // Имя для новой задачи
+  const [newTaskName, setNewTaskName] = useState(''); // Для ввода имени нового списка
   const [filter, setFilter] = useState('all'); // Для фильтрации задач
-  const [editTaskId, setEditTaskId] = useState(null); // ID задачи для редактирования
-  const [newText, setNewText] = useState(''); // Новый текст для редактирования
+  const [editTaskId, setEditTaskId] = useState(null); // ID редактируемой задачи
+  const [newText, setNewText] = useState(''); // Новый текст для редактирования задачи
+  const [error, setError] = useState(''); // Для ошибки при пустом поле
 
-  const addTask = (text) => {
+  const addTask = () => {
+    if (newTaskName.trim() === '') {
+      setError('Имя задачи не может быть пустым');
+      return;
+    }
+    setError('');
     setTasks([
       ...tasks,
-      { id: tasks.length + 1, text: text, completed: false },
+      { id: tasks.length + 1, text: newTaskName, completed: false },
     ]);
+    setNewTaskName('');
   };
 
   const toggleComplete = (id) => {
@@ -53,46 +59,56 @@ const App = () => {
 
   return (
     <div className="container">
-      <h1>Welcome to My To-Do App</h1>
+      <h1>Добро пожаловать в мой To-Do список</h1>
       
       {/* Фильтры */}
       <div className="filters">
-        <button onClick={() => setFilter('all')} className="btn">All</button>
-        <button onClick={() => setFilter('active')} className="btn">Active</button>
-        <button onClick={() => setFilter('completed')} className="btn">Completed</button>
+        <button onClick={() => setFilter('all')} className="btn">Все</button>
+        <button onClick={() => setFilter('active')} className="btn">Активные</button>
+        <button onClick={() => setFilter('completed')} className="btn">Выполненные</button>
       </div>
 
-      {/* Добавление задачи */}
+      {/* Добавление нового списка */}
       <div className="card">
-        <h2>Add a Task</h2>
-        <button className="btn" onClick={() => addTask('New Task')}>
-          Add New Task
-        </button>
+        <h2>Добавить новый список</h2>
+        <input
+          type="text"
+          placeholder="Введите название задачи"
+          value={newTaskName}
+          onChange={(e) => setNewTaskName(e.target.value)}
+          className="input"
+        />
+        {error && <p className="error">{error}</p>}
+        <button className="btn" onClick={addTask}>Добавить задачу</button>
       </div>
-      
+
       {/* Редактирование задачи */}
       {editTaskId && (
         <div className="card">
-          <h2>Edit Task</h2>
+          <h2>Редактировать задачу</h2>
           <input
             type="text"
             value={newText}
             onChange={(e) => setNewText(e.target.value)}
-            placeholder="Enter new task name"
+            placeholder="Введите новое название задачи"
+            className="input"
           />
           <button className="btn" onClick={handleSaveEdit}>
-            Save
+            Сохранить
           </button>
         </div>
       )}
 
       {/* Список задач */}
       <div className="card">
-        <h2>Your Tasks</h2>
+        <h2>Ваши задачи</h2>
         {filteredTasks.length > 0 ? (
           <ul>
             {filteredTasks.map((task) => (
-              <li key={task.id}>
+              <li
+                key={task.id}
+                className={`task ${task.completed ? 'completed' : 'active'}`}
+              >
                 <span
                   style={{
                     textDecoration: task.completed ? 'line-through' : 'none',
@@ -107,19 +123,19 @@ const App = () => {
                   className="btn"
                   onClick={() => removeTask(task.id)}
                 >
-                  Delete
+                  Удалить
                 </button>
                 <button
                   className="btn"
                   onClick={() => handleEditTask(task.id)}
                 >
-                  Edit
+                  Редактировать
                 </button>
               </li>
             ))}
           </ul>
         ) : (
-          <p>No tasks available!</p>
+          <p>Нет задач!</p>
         )}
       </div>
     </div>
