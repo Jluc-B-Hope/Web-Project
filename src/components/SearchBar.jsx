@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const SearchBar = ({ setSearch }) => {
+const SearchBar = ({ onSearch }) => {
+  const [query, setQuery] = useState('');
+
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+    onSearch(e.target.value);
+  };
+
   return (
-    <div className="search-bar">
-      <input
-        type="text"
-        placeholder="Search tasks"
-        onChange={e => setSearch(e.target.value)}
-      />
-    </div>
+    <input
+      type="text"
+      value={query}
+      onChange={handleChange}
+      placeholder="Search Todos"
+    />
   );
 };
 

@@ -1,14 +1,16 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import ReactDOM from 'react-dom/client';  // Импортируем createRoot из react-dom/client
-import App from './App';
+import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './redux/store';
-import './index.css'; // Убедитесь, что путь к файлу правильный
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './App';
+import store from './redux/store';
 
-// Создаем корень и рендерим приложение
-const root = ReactDOM.createRoot(document.getElementById('root'));  // Создаем корень
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>
 );

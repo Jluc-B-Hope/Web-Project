@@ -1,10 +1,10 @@
 import React from 'react';
 
-const TodoItem = ({ todo }) => {
+const TodoItem = ({ todo, onDelete }) => {
   return (
-    <li className={`todo-item ${todo.completed ? 'completed' : ''}`}>
-      <span>{todo.text}</span>
-      <button>Delete</button>
+    <li>
+      {todo.title}
+      <button onClick={() => onDelete(todo.id)}>Delete</button>
     </li>
   );
 };

@@ -1,14 +1,16 @@
 import React from 'react';
 
-const FilterBar = ({ setFilter }) => {
+const FilterBar = ({ onFilter }) => {
+  const handleFilterChange = (e) => {
+    onFilter(e.target.value);
+  };
+
   return (
-    <div className="filter-bar">
-      <select onChange={e => setFilter(e.target.value)}>
-        <option value="all">All</option>
-        <option value="active">Active</option>
-        <option value="completed">Completed</option>
-      </select>
-    </div>
+    <select onChange={handleFilterChange}>
+      <option value="all">All</option>
+      <option value="completed">Completed</option>
+      <option value="pending">Pending</option>
+    </select>
   );
 };
 
