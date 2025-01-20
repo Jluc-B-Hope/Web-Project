@@ -1,19 +1,14 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
-const FilterBar = () => {
-  const dispatch = useDispatch();
-
-  const handleFilterChange = (e) => {
-    dispatch({ type: 'FILTER_TODO', payload: e.target.value });
-  };
-
+const FilterBar = ({ setFilter }) => {
   return (
-    <select onChange={handleFilterChange}>
-      <option value="all">All</option>
-      <option value="completed">Completed</option>
-      <option value="active">Active</option>
-    </select>
+    <div className="filter-bar">
+      <select onChange={e => setFilter(e.target.value)}>
+        <option value="all">All</option>
+        <option value="active">Active</option>
+        <option value="completed">Completed</option>
+      </select>
+    </div>
   );
 };
 

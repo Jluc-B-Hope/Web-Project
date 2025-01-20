@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 
-const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const dispatch = useDispatch();
-
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    dispatch({ type: 'SEARCH_TODO', payload: e.target.value });
-  };
-
+const SearchBar = ({ setSearch }) => {
   return (
-    <input
-      type="text"
-      placeholder="Search todos"
-      value={searchTerm}
-      onChange={handleSearch}
-    />
+    <div className="search-bar">
+      <input
+        type="text"
+        placeholder="Search tasks"
+        onChange={e => setSearch(e.target.value)}
+      />
+    </div>
   );
 };
 

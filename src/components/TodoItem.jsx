@@ -2,10 +2,10 @@ import React from 'react';
 
 const TodoItem = ({ todo }) => {
   return (
-    <div className="todo-item">
-      <input type="checkbox" checked={todo.completed} readOnly />
+    <li className={`todo-item ${todo.completed ? 'completed' : ''}`}>
       <span>{todo.text}</span>
-    </div>
+      <button>Delete</button>
+    </li>
   );
 };
 
